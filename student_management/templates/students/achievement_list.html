@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 style="color: white;">Achievements</h2>
+
+<a href="{% url 'add_achievement' %}" class="btn btn-success">Add Achievement</a>
+
+<br><br>
+
+<table class="table table-striped table-bordered">
+<tr>
+    <th>Student</th>
+    <th>Title</th>
+    <th>Category</th>
+    <th>Date</th>
+    <th>Proof</th>
+    <th>Status</th>
+    <th>Actions</th>
+</tr>
+
+{% for achievement in achievements %}
+<tr>
+    <td>{{ achievement.student.name }}</td>
+    <td>{{ achievement.title }}</td>
+    <td>{{ achievement.category }}</td>
+    <td>{{ achievement.date }}</td>
+
+    <!-- Proof column -->
+    <td>
+        {% if achievement.proof %}
+            <a href="{{ achievement.proof.url }}" target="_blank">View Proof</a>
+        {% else %}
+            No File
+        {% endif %}
+    </td>
+
+    <td>{{ achievement.status }}</td>
+
+    <!-- Actions column -->
+<td>
+    {% if achievement.status == "Pending" %}
+
+       
+        <a href="{% url 'edit_achievement' achievement.id %}"
+   class="btn btn-warning btn-sm">
+   Edit
+</a>
+
+        <a href="{% url 'approve_achievement' achievement.id %}"
+           class="btn btn-success btn-sm">
+           Approve
+        </a>
+
+        <a href="{% url 'reject_achievement' achievement.id %}"
+           class="btn btn-danger btn-sm">
+           Reject
+        </a>
+
+    {% elif achievement.status == "Approved" %}
+        <span class="status-approved">Approved</span>
+
+    {% else %}
+        <span class="status-rejected">Rejected</span>
+    {% endif %}
+</td>
+
+</tr>
+{% endfor %}
+
+
+</table>
+
+{% endblock %}

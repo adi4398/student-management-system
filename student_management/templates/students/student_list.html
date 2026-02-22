@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 style="color: white;">Student List</h2>
+
+<a href="{% url 'add_student' %}" class="btn btn-primary">Add Student</a>
+<a href="{% url 'add_achievement' %}" class="btn btn-success">Add Achievement</a>
+<a href="{% url 'achievement_list' %}" class="btn btn-info">View Achievements</a>
+
+
+
+<br><br>
+
+<!-- DASHBOARD CARDS -->
+<div class="row mb-4">
+
+    <!-- Total Students -->
+    <div class="col-md-3">
+        <div class="card text-white bg-primary shadow-lg">
+            <div class="card-body text-center">
+                <h5>Total Students</h5>
+                <h2>{{ total_students }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Students -->
+    <div class="col-md-3">
+        <div class="card text-white bg-success shadow-lg">
+            <div class="card-body text-center">
+                <h5>Active Students</h5>
+                <h2>{{ active_students }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inactive Students -->
+    <div class="col-md-3">
+        <div class="card text-white bg-danger shadow-lg">
+            <div class="card-body text-center">
+                <h5>Inactive Students</h5>
+                <h2>{{ inactive_students }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Achievements -->
+    <div class="col-md-3">
+        <div class="card text-white bg-dark shadow-lg">
+            <div class="card-body text-center">
+                <h5>Total Achievements</h5>
+                <h2>{{ total_achievements }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+
+<table class="table table-striped table-bordered">
+<tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Register No</th>
+    <th>Course</th>
+    <th>Actions</th>
+</tr>
+
+{% for student in students %}
+<tr>
+    <td>{{ student.name }}</td>
+    <td>{{ student.email }}</td>
+    <td>{{ student.register_number }}</td>
+    <td>{{ student.course }}</td>
+
+    <td>
+        <a href="{% url 'edit_student' student.id %}">Edit</a>
+        <a href="{% url 'delete_student' student.id %}">Delete</a>
+    </td>
+</tr>
+{% endfor %}
+
+
+</table>
+
+{% endblock %}

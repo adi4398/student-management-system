@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Edit Student</h2>
+
+<form method="POST">
+{% csrf_token %}
+
+<input type="text" name="name" value="{{ student.name }}"><br><br>
+<input type="email" name="email" value="{{ student.email }}"><br><br>
+<input type="text" name="register_number" value="{{ student.register_number }}"><br><br>
+<input type="text" name="course" value="{{ student.course }}"><br><br>
+<input type="text" name="batch" value="{{ student.batch }}"><br><br>
+<input type="text" name="department" value="{{ student.department }}"><br><br>
+
+<select name="status">
+    <option value="Active" {% if student.status == 'Active' %}selected{% endif %}>Active</option>
+    <option value="Inactive" {% if student.status == 'Inactive' %}selected{% endif %}>Inactive</option>
+</select>
+
+<br><br>
+<button type="submit">Update Student</button>
+
+</form>
+
+{% endblock %}

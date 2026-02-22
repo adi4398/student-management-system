@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'js/index.css' %}">
+{% endblock styles %}
+
+{% block content %}
+
+<div class="bg-color">
+    <h1>Welcome to My Web Page</h1>
+    <p>This is a sample paragraph to demonstrate the HTML structure.</p>
+
+    <img src="{% static 'images/4723250.jpg' %}" alt="Sample Image">
+</div>
+
+{% endblock content %}
+
+

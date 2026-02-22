@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+
+        <h3 class="mb-4 text-center">Edit Achievement</h3>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Student -->
+            <div class="mb-3">
+                <label class="form-label">Student</label>
+                <select name="student" class="form-select">
+                    {% for s in students %}
+                        <option value="{{ s.id }}"
+                        {% if achievement.student.id == s.id %}selected{% endif %}>
+                            {{ s.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Title -->
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" name="title"
+                       value="{{ achievement.title }}"
+                       class="form-control">
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="description"
+                          class="form-control">{{ achievement.description }}</textarea>
+            </div>
+
+            <!-- Category -->
+            <div class="mb-3">
+                <label class="form-label">Category</label>
+                <select name="category" class="form-select">
+                    {% for c in categories %}
+                        <option value="{{ c.id }}"
+                        {% if achievement.category.id == c.id %}selected{% endif %}>
+                            {{ c.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Date -->
+            <div class="mb-3">
+                <label class="form-label">Date</label>
+                <input type="date"
+                       name="date"
+                       value="{{ achievement.date|date:'Y-m-d' }}"
+                       class="form-control">
+            </div>
+
+            <!-- Proof -->
+            <div class="mb-3">
+                <label class="form-label">Update Proof</label>
+                <input type="file" name="proof" class="form-control">
+
+                {% if achievement.proof %}
+                    <p class="mt-2">
+                        Current file:
+                        <a href="{{ achievement.proof.url }}" target="_blank">
+                            View Proof
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
+
+            <button class="btn btn-success w-100">
+                Update Achievement
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
